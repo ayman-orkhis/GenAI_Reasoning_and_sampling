@@ -53,6 +53,9 @@ CondaToSNonInteractiveError: Terms of Service have not been accepted
 Execute:
 ``
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+``
+
+``
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 ``
 
@@ -64,8 +67,10 @@ Create a Python 3.11 environment (recommended as some packages break in Python 3
 
 ``
 conda create -n reasoning-sampling python=3.11 -y
+``
+
+``
 conda activate reasoning-sampling
-python --version
 ``
 
 You should see Python 3.11.x.
@@ -77,7 +82,6 @@ You should see Python 3.11.x.
 Execute from the repo root:
 
 ``
-pip install --upgrade pip
 pip install torch transformers accelerate datasets tqdm sentencepiece
 ``
 
