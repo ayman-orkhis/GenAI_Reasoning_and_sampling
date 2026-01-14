@@ -16,7 +16,7 @@ This repo allows you to evaluate Base sampling / Low-temperature sampling / Powe
 - Internet connection (to download HuggingFace models + datasets)
 
 **Check GPU availability:**
-``ash
+``
 nvidia-smi
 ``
 
@@ -27,17 +27,17 @@ nvidia-smi
 If conda --version returns "command not found", install Miniconda:
 
 **Download Miniconda (Linux x86_64):**
-``ash
+``
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 ``
 
 **Install:**
-``ash
+``
 bash Miniconda3-latest-Linux-x86_64.sh
 ``
 
 Reload your shell (or close/reopen terminal), then verify:
-``ash
+``
 conda --version
 ``
 
@@ -51,7 +51,7 @@ CondaToSNonInteractiveError: Terms of Service have not been accepted
 ``
 
 Execute:
-``ash
+``
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 ``
@@ -62,7 +62,7 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 Create a Python 3.11 environment (recommended as some packages break in Python 3.13):
 
-``ash
+``
 conda create -n reasoning-sampling python=3.11 -y
 conda activate reasoning-sampling
 python --version
@@ -76,7 +76,7 @@ You should see Python 3.11.x.
 
 Execute from the repo root:
 
-``ash
+``
 pip install --upgrade pip
 pip install torch transformers accelerate datasets tqdm sentencepiece
 ``
