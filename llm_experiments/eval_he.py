@@ -3,10 +3,10 @@ import json
 from pathlib import Path
 from typing import List, Dict, Any
 from grader_utils.he_grader import entry_point
+import argparse # ajouter
 
 
-
-def fnames_to_json(fnames, output_fname, tag, data_file='data/HumanEval.jsonl'):
+def fnames_to_json(fnames, output_fname, tag, data_file='llm_experiments/data/HumanEval.jsonl'):
     with open(data_file, "r", encoding="utf-8") as f:
         dataset = [json.loads(line) for line in f if line.strip()]
 

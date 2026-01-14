@@ -85,7 +85,9 @@ if __name__ == "__main__":
     results = []
 
     start = 100*args.batch_idx
-    end = 100*(args.batch_idx+1)
+    N = 20  # Pour alleger un petite peu 
+    end = start + N
+
 
     for problem, data in tqdm(enumerate(dataset[start:end]), desc = "Benchmark on MATH"):
         question = data["prompt"]

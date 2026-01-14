@@ -1,59 +1,87 @@
-# Reasoning with Sampling
-
+﻿# Reasoning with Sampling  Setup & Mini-Experiments (MATH / HumanEval)
 
 ### [Paper](https://arxiv.org/abs/2510.14901) | [Project Page](https://aakaran.github.io/reasoning_with_sampling/)
 
 [![rws](teaser.png)](teaser.png)
 
+This repo allows you to evaluate Base sampling / Low-temperature sampling / Power Sampling (MCMC) on multiple benchmarks (MATH, HumanEval).
 
-This repo contains the official PyTorch implementation of Reasoning with Sampling.
-> [**Reasoning with Sampling: Your Base Model is Smarter Than You Think**](https://arxiv.org/abs/2510.14901)<br>
-> [Aayush Karan](https://aakaran.github.io/), [Yilun Du](https://yilundu.github.io/)
-> <br>Harvard<br>
+---
 
+## Prerequisites
 
+- Linux (Ubuntu/Onyxia)
+- GPU available + CUDA drivers (optional but recommended)
+- git installed
+- Internet connection (to download HuggingFace models + datasets)
 
-## Setup
+**Check GPU availability:**
+``ash
+nvidia-smi
+``
 
-Run the following script to setup environment.
+---
 
-```bash
-git clone https://github.com/aakaran/reasoning-with-sampling.git
-cd reasoning-with-sampling
-conda env create -f environment.yml
-conda activate psamp
-```
+## 1) Install Miniconda (if conda doesn't exist)
 
+If conda --version returns "command not found", install Miniconda:
 
-## Sampling
-The llm_experiments folder contains slurm scripts to run power sampling for MATH500 (```power_samp_math.py```), whose .json is included in llm_experiments/data, as well as HumanEval (```power_samp_he.py```), GPQA Diamond (```power_samp_gpqa.py```), and AlpacaEval 2.0 (```power_samp_alpaca.py```), whose corresponding eval sets can be downloaded from their official repos. 
+**Download Miniconda (Linux x86_64):**
+``ash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+``
 
-To run power sampling on MATH500 with 8 seeds and the eval set split across 5 shards:
-```bash
-sbatch llm_experiments/scripts/power_samp_math.sh
-```
-The output is several .csv files (based on the shard and seed number) that store the response outputs, correct answers, original prompts, etc. 
+**Install:**
+``ash
+bash Miniconda3-latest-Linux-x86_64.sh
+``
 
-## Evaluation
-**Single-shot Reasoning**
+Reload your shell (or close/reopen terminal), then verify:
+``ash
+conda --version
+``
 
-To grade the responses for single-shot reasoning, collect the .csv files for a given seed run in a folder (e.g. ```results/qwen_math/MATH```) and pass it into ```eval_math.py```:
+---
 
-```bash
-python llm_experiments/eval_math.py --folder=results/qwen_math/MATH
-```
+## 2) Accept Terms of Service (if ToS error)
 
-```eval_gpqa.py``` is similar, and for ```eval_he.py```, an additional ```--output_fname``` argument is required, as HumanEval collects all responses in a jsonl file (e.g. ```--output_fname=qwen_math_he```).
+If you see the error:
+``
+CondaToSNonInteractiveError: Terms of Service have not been accepted
+``
 
-For AlpacaEval 2.0, ```eval_alpaca.py``` collects a ```--folder``` into one json file ```--output_fname```. For evaluating the json file, follow the instructions in the official repo: https://github.com/tatsu-lab/alpaca_eval
+Execute:
+``ash
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+``
 
+---
 
-**Pass@k Performance**
+## 3) Create and Activate Conda Environment
 
-For pass@k performance, collect the .csv files across seeds in a folder again (e.g. ```results/qwen_math/MATH```) and pass into ```passk_math.py```:
-```bash
-python llm_experiments/passk_math.py --folder=results/qwen_math/MATH
-```
-The output is a plot of the pass@k performance. As with single-shot reasoning, ```eval_gpqa.py``` and ```eval_he.py``` are similar, but for the latter an additional ```--output_fname``` argument is required.
+Create a Python 3.11 environment (recommended as some packages break in Python 3.13):
 
+``ash
+conda create -n reasoning-sampling python=3.11 -y
+conda activate reasoning-sampling
+python --version
+``
 
+You should see Python 3.11.x.
+
+---
+
+## 4) Install Dependencies (pip within conda environment)
+
+Execute from the repo root:
+
+``ash
+pip install --upgrade pip
+pip install torch transformers accelerate datasets tqdm sentencepiece
+``
+
+**Notes:**
+- If using GPU, ensure 	orch is CUDA-compatible (usually already OK on GPU platforms)
+
+---

@@ -80,17 +80,19 @@ if __name__ == "__main__":
 
     print("dataset done")
 
-    config = transformers.AutoConfig.from_pretrained(model_str, trust_remote_code=False, local_files_only=True)
-    tokenizer = transformers.AutoTokenizer.from_pretrained(model_str, trust_remote_code=False, local_files_only=True)
-    hf_model = transformers.AutoModelForCausalLM.from_pretrained(model_str, config=config, torch_dtype="auto", device_map="auto", trust_remote_code=False, local_files_only=True).to(device)
+    config = transformers.AutoConfig.from_pretrained(model_str, trust_remote_code=True, local_files_only=False)
+    tokenizer = transformers.AutoTokenizer.from_pretrained(model_str, trust_remote_code=True, local_files_only=False)
+    hf_model = transformers.AutoModelForCausalLM.from_pretrained(model_str, config=config, torch_dtype="auto", device_map="auto", trust_remote_code=True, local_files_only=False).to(device)
 
     autoreg_sampler = AutoregressiveSampler(hf_model, tokenizer, device)
 
     print("loaded models")
     results = []
 
-    start = 41*args.batch_idx
-    end = 41*(args.batch_idx+1)
+    # start = 41*args.batch_idx
+    # end = 41*(args.batch_idx+1)
+    start = 0
+    end = 20
 
     for problem, data in tqdm(enumerate(dataset[start:end]), desc = "Benchmark on HumanEval"):
         prompt = data["prompt"]
