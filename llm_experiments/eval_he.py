@@ -2,11 +2,11 @@ import pandas as pd
 import json
 from pathlib import Path
 from typing import List, Dict, Any
-from grader_utils.he_grader import entry_point
+from grader_utils.he_grader import entry_point, extract_code
 import argparse # ajouter
 
 
-def fnames_to_json(fnames, output_fname, tag, data_file='llm_experiments/data/HumanEval.jsonl'):
+def fnames_to_json(fnames, output_fname, tag, data_file='data/HumanEval.jsonl'):
     with open(data_file, "r", encoding="utf-8") as f:
         dataset = [json.loads(line) for line in f if line.strip()]
 
@@ -46,7 +46,11 @@ def he_results(fnames, output_fname):
     tags = ["std", "naive", "mcmc"]
     for tag in tags:
         output_file = fnames_to_json(fnames, output_fname, tag)
-        entry_point(output_file)
+        entry_point(
+        output_file,
+        problem_file="data/HumanEval_subset.jsonl"
+        )
+
         
 
 if __name__ == "__main__":

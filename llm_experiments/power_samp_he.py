@@ -89,10 +89,9 @@ if __name__ == "__main__":
     print("loaded models")
     results = []
 
-    # start = 41*args.batch_idx
-    # end = 41*(args.batch_idx+1)
-    start = 0
-    end = 20
+    start = 41*args.batch_idx
+    end = 41*(args.batch_idx+1)
+
 
     for problem, data in tqdm(enumerate(dataset[start:end]), desc = "Benchmark on HumanEval"):
         prompt = data["prompt"]
