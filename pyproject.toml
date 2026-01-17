@@ -1,0 +1,18 @@
+[project]
+name = "genai-reasoning-and-sampling"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.12.0",
+    "datasets>=4.5.0",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.1",
+    "pandas>=2.3.3",
+    "pylatexenc>=2.10",
+    "sympy>=1.14.0",
+    "torch>=2.9.1",
+    "tqdm>=4.67.1",
+    "transformers==4.44.0",
+]
