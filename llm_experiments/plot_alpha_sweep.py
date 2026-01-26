@@ -109,7 +109,7 @@ os.makedirs("Results", exist_ok=True)
 plt.savefig('Results/phi_figure6_style.png', dpi=300, bbox_inches='tight', facecolor='white')
 plt.savefig('Results/phi_figure6_style.pdf', dpi=300, bbox_inches='tight', facecolor='white')
 
-print(f"\n📊 Figure sauvegardée: Results/phi_figure6_style.png")
+print(f"\n Figure sauvegardée: Results/phi_figure6_style.png")
 
 # Afficher le résumé comparatif
 print("\n" + "="*45)
